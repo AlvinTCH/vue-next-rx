@@ -54,7 +54,7 @@ export default {
           obs[key].subscribe(
             value => {
               vm[key] = value;
-              this.getCurrentInstance().subTree.key = uuidv4();
+              getCurrentInstance().subTree.key = uuidv4();
               // this.$forceUpdate();
             },
             error => {
