@@ -40,7 +40,8 @@
     "rollup": "^2.34.2",
     "rxjs": "^6.0.0",
     "typescript": "^2.8.2",
-    "vue": "^3.0.0"
+    "vue": "^3.0.0",
+    "uuidv4": "^6.2.8"
   },
   "peerDependencies": {
     "rxjs": "^6.0.0",
