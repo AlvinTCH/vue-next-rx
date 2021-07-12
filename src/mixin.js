@@ -1,6 +1,10 @@
 import { warn } from "./util";
 import { Subject, Subscription, isObservable } from "rxjs";
 
+import { getCurrentInstance } from 'vue'
+
+import { v4 as uuidv4 } from 'uuid'
+
 export default {
   created() {
     const vm = this;
@@ -50,6 +54,7 @@ export default {
           obs[key].subscribe(
             value => {
               vm[key] = value;
+              this.getCurrentInstance().subTree.key = uuidv4();
               this.$forceUpdate();
             },
             error => {
