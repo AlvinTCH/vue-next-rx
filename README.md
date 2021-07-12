@@ -6,6 +6,8 @@
 
 ### [RxJS v6](https://github.com/ReactiveX/rxjs) integration for [Vue next]()
 
+### Note: This is a fork of @nopr3d/vue-next-rx for my own testing
+
 </br>
 
 ![](https://img.shields.io/github/license/NOPR9D/vue-next-rx)
@@ -26,12 +28,12 @@
 **`rxjs` is required as a peer dependency.**
 
 ```bash
-npm install vue @nopr3d/vue-next-rx rxjs --save
+npm install vue @greytch/vue-next-rx rxjs --save
 ```
 
 ```js
 import Vue from "vue";
-import VueRx from "@nopr3d/vue-next-rx";
+import VueRx from "@greytch/vue-next-rx";
 
 Vue.use(VueRx);
 ```

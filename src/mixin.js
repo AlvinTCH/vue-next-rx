@@ -54,8 +54,15 @@ export default {
           obs[key].subscribe(
             value => {
               vm[key] = value;
-              getCurrentInstance().subTree.key = uuidv4();
-              // this.$forceUpdate();
+              const currentInst = getCurrentInstance();
+              const newKey = uuidv4();
+              if (vm.$.subTree) {
+                vm.$.subTree.key = newKey;
+              } else if (currentInst && currentInst.subTree) {
+                currentInst.subTree.key = newKey;
+              } else {
+                vm.$forceUpdate();
+              }
             },
             error => {
               throw error;

@@ -1,13 +1,13 @@
 {
-  "name": "@nopr3d/vue-next-rx",
-  "version": "1.0.7",
+  "name": "@greytch/vue-next-rx",
+  "version": "1.0.4",
   "description": "RxJs for Vue 3",
-  "author": "Boucham Amine",
+  "author": "Alvin",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/NOPR9D/vue-next-rx/issues"
+    "url": "https://github.com/AlvinTCH/vue-next-rx/issues"
   },
-  "homepage": "https://github.com/NOPR9D/vue-next-rx#readme",
+  "homepage": "https://github.com/AlvinTCH/vue-next-rx#readme",
   "main": "dist/vue-next-rx.js",
   "module": "dist/vue-next-rx.esm.js",
   "sideEffects": false,
@@ -49,7 +49,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/NOPR9D/vue-next-rx.git"
+    "url": "git+https://github.com/AlvinTCH/vue-next-rx.git"
   },
   "keywords": [
     "vue",
