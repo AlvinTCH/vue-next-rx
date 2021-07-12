@@ -55,7 +55,7 @@ export default {
             value => {
               vm[key] = value;
               this.getCurrentInstance().subTree.key = uuidv4();
-              this.$forceUpdate();
+              // this.$forceUpdate();
             },
             error => {
               throw error;
