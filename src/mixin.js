@@ -56,12 +56,16 @@ export default {
               vm[key] = value;
               const currentInst = getCurrentInstance();
               const newKey = uuidv4();
-              if (vm.$.subTree) {
+              if (vm.$ && vm.$.subTree) {
                 vm.$.subTree.key = newKey;
               } else if (currentInst && currentInst.subTree) {
                 currentInst.subTree.key = newKey;
               } else {
-                vm.$forceUpdate();
+                try {
+                  vm.$forceUpdate();
+                } catch(e) {
+                  () => true;
+                }
               }
             },
             error => {
