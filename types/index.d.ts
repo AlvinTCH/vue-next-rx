@@ -19,9 +19,9 @@ export type WatchStopHandle<T = any> = Observer<T> &
   Unsubscribable &
   (() => void);
 
-export function ref(value: unknown): Ref;
+export function rxInitSubjectCallback<T>(): { subject: Subject<T>, callback: (event: T) => void };
 
-export function watch(ref: Ref, fn?: (val: any) => any): WatchStopHandle;
+export function useObservable<T>(observable: Observable<T>, defaultValue?: T): Ref<T>;
 
 export function watchEffect(fn?: () => any): WatchStopHandle;
 
