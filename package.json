@@ -18,7 +18,7 @@
   "scripts": {
     "dev": "rollup -c rollup.config.js -w",
     "build": "rollup -c rollup.config.js",
-    "publish": "npm publish --access public",
+    "Publish": "npm publish --access public",
     "lint": "eslint src test example",
     "dev:test": "jest --watch",
     "test": "jest"

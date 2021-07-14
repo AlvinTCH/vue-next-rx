@@ -51,17 +51,13 @@ Example:
 
 <br />
 
----
-
 # Usage
 
-<br />
-
-# Composition API
+## Composition API
 
 Credits to @kevin-courbet in https://github.com/vuejs/vue-rx/issues/120)
 
-## `rxInitSubjectCallback<T>()`
+### `rxInitSubjectCallback<T>()`
 
 Returns the subject and the callback function to be used. Callback function can be exposed and be placed in the DOM and can be used to trigger the observable
 
@@ -69,7 +65,7 @@ Returns the subject and the callback function to be used. Callback function can 
 const { subject: plus$, callback: plus } = rxInitSubjectCallback();
 ```
 
-## `useObservable<T>(observable: Observable<T>, defaultValue?: T)`
+### `useObservable<T>(observable: Observable<T>, defaultValue?: T)`
 
 Wraps the obervable. The variable becomes a ref
 
@@ -77,8 +73,7 @@ Wraps the obervable. The variable becomes a ref
 const { subject: plus$, callback: plus } = rxInitSubjectCallback();
 ```
 
-
-### Example Implementation
+#### Example Implementation
 
 ``` html
 <div lang="pug">
@@ -115,7 +110,7 @@ export default defineComponent({
 
 </br>
 
-# Subscriptions
+## Subscriptions
 
 ```js
 // Expose `Subject` with domStream, use them in subscriptions functions
@@ -173,8 +168,6 @@ You can bind Subject by this way
 or
 <button v-stream:click="{ subject: action$, data: someData }">+</button>
 ```
-
-</br>
 
 ---
 
