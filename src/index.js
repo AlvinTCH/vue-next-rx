@@ -2,7 +2,7 @@ import { createObservableMethod } from "./methods/createObservableMethod";
 import { fromDomEvent } from "./methods/fromDomEvent";
 import { subscribeTo } from "./methods/subscribeTo";
 import { watchAsObservable } from "./methods/watchAsObservable";
-import { useObservable, useSubscription, rxInitSubjectCallback } from "./methods/compositionApi";
+import { useObservable, useSubscription, rxInitSubjectCallback } from "./methods/compositionApi.ts";
 
 import streamDirective from "./directives/stream";
 

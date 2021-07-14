@@ -1,5 +1,6 @@
 const alias = require("@rollup/plugin-alias");
 const buble = require("@rollup/plugin-buble");
+const typescript = require('@rollup/plugin-typescript');
 
 module.exports = [
   {
@@ -15,6 +16,7 @@ module.exports = [
       },
     },
     plugins: [
+      typescript(),
       buble(),
       alias({
         "rxjs/operators": "src/umd-aliases/operators.js",
@@ -37,6 +39,7 @@ module.exports = [
       },
     },
     plugins: [
+      typescript(),
       buble(),
       alias({
         "rxjs/operators": "src/umd-aliases/operators.js",

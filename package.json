@@ -1,6 +1,6 @@
 {
   "name": "@greytch/vue-next-rx",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "RxJs for Vue 3",
   "author": "Alvin",
   "license": "MIT",
@@ -67,5 +67,8 @@
     "hooks",
     "store",
     "support"
-  ]
+  ],
+  "dependencies": {
+    "@rollup/plugin-typescript": "^8.2.1"
+  }
 }
