@@ -10,23 +10,6 @@
 
 ![](https://img.shields.io/github/license/NOPR9D/vue-next-rx)
 
----
-<br>
-
-This fork is meant to create the minimal bridge between vue-rx and vue3 to help with the migration.
-There are no plans for me to provide any methods to be used in composition api
-
-For usages with composition api, you may want to consider:
-
-- vuse-rx: https://github.com/Raiondesu/vuse-rx
-- Or your own implementation (E.g by @kevin-courbet in https://github.com/vuejs/vue-rx/issues/120):
-
-(I am currently using this for my project as I got quite allergic to packages after the migration)
-
-</br>
-
----
-
 <br>
 
 > **NOTE**
@@ -343,6 +326,17 @@ The above will automatically create two things on the instance:
 See `/examples` for some simple examples.
 
 </br>
+
+---
+<br>
+
+## Other Vue RxJS implementation
+
+- vuse-rx: https://github.com/Raiondesu/vuse-rx
+
+</br>
+
+---
 
 ---
 
