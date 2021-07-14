@@ -49,7 +49,7 @@ Example:
 <script src="../dist/vue-next-rx.js"></script>
 ```
 
-<br />
+---
 
 # Usage
 
