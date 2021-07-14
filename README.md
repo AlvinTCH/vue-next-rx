@@ -13,8 +13,8 @@
 ---
 <br>
 
-This repository is meant to create the minimal bridge between vue-rx and vue3 to help with the migration.
-There are no plans for me to provide any methods to be used in composition api.
+This fork is meant to create the minimal bridge between vue-rx and vue3 to help with the migration.
+There are no plans for me to provide any methods to be used in composition api
 
 For usages with composition api, you may want to consider:
 
@@ -114,6 +114,8 @@ export function useDOMEvent<T>() {
 ```
 
 </br>
+
+---
 
 <br>
 
