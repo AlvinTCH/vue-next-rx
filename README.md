@@ -108,9 +108,7 @@ export default defineComponent({
 });
 ```
 
-</br>
-
-## Subscriptions
+## Options API
 
 ```js
 // Expose `Subject` with domStream, use them in subscriptions functions
@@ -171,9 +169,7 @@ or
 
 ---
 
-<br />
-
-# Other API Methods
+# Other API Methods (Options API)
 
 </br>
 
