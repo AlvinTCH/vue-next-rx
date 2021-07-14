@@ -1,6 +1,3 @@
-import { ref } from "./methods/ref";
-import { watch } from "./methods/watch";
-
 import { createObservableMethod } from "./methods/createObservableMethod";
 import { fromDomEvent } from "./methods/fromDomEvent";
 import { subscribeTo } from "./methods/subscribeTo";
@@ -31,6 +28,3 @@ export function install(Vue) {
   };
   this._Vue = Vue;
 }
-
-// auto install
-export { ref, watch };

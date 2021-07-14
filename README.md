@@ -6,12 +6,115 @@
 
 ### [RxJS v6](https://github.com/ReactiveX/rxjs) integration for [Vue next]()
 
-### Note: This is a fork of @nopr3d/vue-next-rx for my own testing
+### Note: This is a fork of @nopr3d/vue-next-rx
+
+---
+<br />
+
+This repository is meant to create the minimal bridge between vue-rx and vue3 to help with the migration.
+There are no plans for me to provide any methods to be used in composition api.
+
+For usages with composition api, you may want to consider:
+
+- vuse-rx: https://github.com/Raiondesu/vuse-rx
+- Or your own implementation (E.g by @kevin-courbet in https://github.com/vuejs/vue-rx/issues/120):
+
+(I am currently using this for my project as I got quite allergic to packages after the migration)
+
+```
+<div lang="pug">
+  button(@click="plus")
+  br
+  pre {{ count }}
+</div>
+
+<script>
+  import Vue from 'vue';
+  import { ref, reactive } from '@vue/composition-api';
+  import { useObservable, useDOMEvent } from 'composables/observables';
+  import { startWith } from 'rxjs/operators';
+  export default Vue.extend({
+    setup() {
+      const { subject: plus$, callback: plus } = useDOMEvent();
+      const count = useObservable(
+        plus$.pipe(
+          map(() => 1),
+          startWith(0),
+          scan((total, change) => total + change)
+        )
+      )
+      return {
+        count,
+        plus
+      }
+    }
+  })
+</script>
+```
+
+Implementation:
+
+```
+import { ref, Ref, onBeforeUnmount } from '@vue/composition-api';
+import { Observable, Subject } from 'rxjs';
+
+function subscribeTo<T>(
+  observable: Observable<T>,
+  next?: (value: T) => void,
+  error?: (err: any) => void,
+  complete?: () => void
+) {
+  const unsubscribe$ = new Subject<void>();
+  const subscription = observable.subscribe(next, error, complete);
+  onBeforeUnmount(() => {
+    subscription.unsubscribe();
+  });
+
+  return subscription;
+}
+
+export function useObservable<T>(
+  observable: Observable<T>,
+  defaultValue?: T
+): Ref<T> {
+  const handler = ref(defaultValue) as Ref<T>;
+  subscribeTo(
+    observable,
+    value => {
+      handler.value = value;
+    },
+    error => {
+      throw error;
+    }
+  );
+
+  return handler;
+}
+
+export function useSubscription<T>(
+  observable: Observable<T>,
+  next?: (value: T) => void,
+  error?: (err: any) => void,
+  complete?: () => void
+) {
+  return subscribeTo(observable, next, error, complete);
+}
+
+export function useDOMEvent<T>() {
+  const subject = new Subject<T>();
+  return {
+    subject,
+    callback: (event: T) => {
+      subject.next(event);
+    }
+  };
+}
+```
 
 </br>
+---
 
 ![](https://img.shields.io/github/license/NOPR9D/vue-next-rx)
-![](https://gitlab.com/nopr3d/vue-next-rx/badges/main/pipeline.svg)
 
 <br>
 
@@ -47,7 +150,7 @@ To use in a browser environment, use the UMD build `dist/vue-next-rx.js`. When i
 Example:
 
 ```html
-<script src="https://unpkg.com/rxjs/bundles/rxjs.umd.js"></script>
+<script src="https://unpkg.com/rxjs/bundles/rxjs.umd.js"></scripts>
 <script src="https://unpkg.com/vue@next"></script>
 <script src="../dist/vue-next-rx.js"></script>
 ```
@@ -120,73 +223,6 @@ or
 ```
 
 </br>
-
----
-
-# Ref
-
-```js
-import { ref } from "@nopr3d/vue-next-rx";
-
-// use ref like an Rx Subject
-export default defineComponent({
-  name: "Home",
-  components: {},
-  setup() {
-    const msg = ref("Message exemple");
-
-    setTimeout(() => {
-      msg.value = "New message !";
-    }, 2000);
-
-    msg.subscribe((value) => {
-      console.log(value); // After 2s will print : New message !
-    });
-
-    return { msg };
-  },
-});
-```
-
-```html
-<!-- bind to it normally in templates -->
-<!-- on change DOM is update too -->
-<div>{{ msg }}</div>
-```
-
----
-
-<br />
-
-# Watch
-
-```js
-import { ref, watch } from "@nopr3d/vue-next-rx";
-
-export default defineComponent({
-  name: "Home",
-  components: {},
-  setup() {
-    const msg = ref("Message exemple");
-
-    watch(msg).subscribe((val) => {
-      console.log(val); // After 2s will print : New message !
-    });
-
-    setTimeout(() => {
-      msg.value = "New message !";
-    }, 2000);
-
-    return { msg };
-  },
-});
-```
-
-```html
-<!-- bind to it normally in templates -->
-<!-- on change DOM is update too -->
-<div>{{ msg }}</div>
-```
 
 ---
 
@@ -318,14 +354,6 @@ The above will automatically create two things on the instance:
 See `/examples` for some simple examples.
 
 </br>
-
----
-
-## Test
-
-Test look goods, feel free to open an issue !
-
-![](https://i.ibb.co/17mtk34/testsPNG.png)
 
 ---
 
