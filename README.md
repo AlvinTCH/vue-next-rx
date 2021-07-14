@@ -23,96 +23,6 @@ For usages with composition api, you may want to consider:
 
 (I am currently using this for my project as I got quite allergic to packages after the migration)
 
-```
-<div lang="pug">
-  button(@click="plus")
-  br
-  pre {{ count }}
-</div>
-
-<script>
-  import Vue from 'vue';
-  import { ref, reactive } from '@vue/composition-api';
-  import { useObservable, useDOMEvent } from 'composables/observables';
-  import { startWith } from 'rxjs/operators';
-  export default Vue.extend({
-    setup() {
-      const { subject: plus$, callback: plus } = useDOMEvent();
-      const count = useObservable(
-        plus$.pipe(
-          map(() => 1),
-          startWith(0),
-          scan((total, change) => total + change)
-        )
-      )
-      return {
-        count,
-        plus
-      }
-    }
-  })
-</script>
-```
-
-Implementation:
-
-```
-import { ref, Ref, onBeforeUnmount } from '@vue/composition-api';
-import { Observable, Subject } from 'rxjs';
-
-function subscribeTo<T>(
-  observable: Observable<T>,
-  next?: (value: T) => void,
-  error?: (err: any) => void,
-  complete?: () => void
-) {
-  const unsubscribe$ = new Subject<void>();
-  const subscription = observable.subscribe(next, error, complete);
-  onBeforeUnmount(() => {
-    subscription.unsubscribe();
-  });
-
-  return subscription;
-}
-
-export function useObservable<T>(
-  observable: Observable<T>,
-  defaultValue?: T
-): Ref<T> {
-  const handler = ref(defaultValue) as Ref<T>;
-  subscribeTo(
-    observable,
-    value => {
-      handler.value = value;
-    },
-    error => {
-      throw error;
-    }
-  );
-
-  return handler;
-}
-
-export function useSubscription<T>(
-  observable: Observable<T>,
-  next?: (value: T) => void,
-  error?: (err: any) => void,
-  complete?: () => void
-) {
-  return subscribeTo(observable, next, error, complete);
-}
-
-export function useDOMEvent<T>() {
-  const subject = new Subject<T>();
-  return {
-    subject,
-    callback: (event: T) => {
-      subject.next(event);
-    }
-  };
-}
-```
-
 </br>
 
 ---
@@ -163,6 +73,64 @@ Example:
 # Usage
 
 <br />
+
+# Composition API
+
+Credits to @kevin-courbet in https://github.com/vuejs/vue-rx/issues/120)
+
+## `rxInitSubjectCallback<T>()`
+
+Returns the subject and the callback function to be used. Callback function can be exposed and be placed in the DOM and can be used to trigger the observable
+
+```js
+const { subject: plus$, callback: plus } = rxInitSubjectCallback();
+```
+
+## `useObservable<T>(observable: Observable<T>, defaultValue?: T)`
+
+Wraps the obervable. The variable becomes a ref
+
+```js
+const { subject: plus$, callback: plus } = rxInitSubjectCallback();
+```
+
+
+### Example Implementation
+
+``` html
+<div lang="pug">
+  <div @click="plus">
+  </div>
+  <span>{{ count }}</span>
+</div>
+```
+
+```js
+import { rxInitSubjectCallback, useObservable } from "@greytch/vue-next-rx";
+
+export default defineComponent({
+  name: "Home",
+  setup () {
+    // returns the subject and the callback function to be used. Callback function can be exposed and be placed in the DOM to call the composition API
+    const { subject: plus$, callback: plus } = rxInitSubjectCallback();
+
+    // wraps the obervable. 'Count' becomes a "ref" type
+    const count = useObservable(
+      plus$.pipe(
+        map(() => 1),
+        startWith(0),
+        scan((total, change) => total + change)
+      )
+    )
+    return {
+      count,
+      plus
+    }
+  }
+});
+```
+
+</br>
 
 # Subscriptions
 
@@ -238,7 +206,7 @@ or
 This is a prototype method added to instances. You can use it to create an observable from a Data. The emitted value is in the format of `{ newValue, oldValue }`:
 
 ```js
-import { ref } from "@nopr3d/vue-next-rx";
+import { ref } from "@greytch/vue-next-rx";
 
 export default defineComponent({
   name: "Home",
@@ -250,6 +218,26 @@ export default defineComponent({
   subscriptions() {
     return {
       oldMsg: this.$watchAsObservable("msg").pipe(pluck("oldValue")),
+    };
+  },
+});
+```
+
+You can also add options allowed in the $watch API (E.g deep, immediate as the second parameter)
+
+```js
+import { ref } from "@greytch/vue-next-rx";
+
+export default defineComponent({
+  name: "Home",
+  setup() {
+    const msg = ref("Old Message");
+    setTimeout(() => (msg.value = "New message incomming !"), 1000);
+    return { msg };
+  },
+  subscriptions() {
+    return {
+      oldMsg: this.$watchAsObservable("msg", { immediate: true }).pipe(pluck("oldValue")),
     };
   },
 });

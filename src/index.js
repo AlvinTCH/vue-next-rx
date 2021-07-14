@@ -2,6 +2,7 @@ import { createObservableMethod } from "./methods/createObservableMethod";
 import { fromDomEvent } from "./methods/fromDomEvent";
 import { subscribeTo } from "./methods/subscribeTo";
 import { watchAsObservable } from "./methods/watchAsObservable";
+import { useObservable, useSubscription, rxInitSubjectCallback } from "./methods/compositionApi";
 
 import streamDirective from "./directives/stream";
 
@@ -28,3 +29,5 @@ export function install(Vue) {
   };
   this._Vue = Vue;
 }
+
+export { useObservable, useSubscription, rxInitSubjectCallback };

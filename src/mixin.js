@@ -56,15 +56,16 @@ export default {
               vm[key] = value;
               const currentInst = getCurrentInstance();
               const newKey = uuidv4();
-              if (vm.$ && vm.$.subTree) {
-                vm.$.subTree.key = newKey;
-              } else if (currentInst && currentInst.subTree) {
-                currentInst.subTree.key = newKey;
-              } else {
-                try {
-                  vm.$forceUpdate();
-                } catch(e) {
-                  () => true;
+              try {
+                vm.$forceUpdate();
+              } catch (e) {
+                // try to force new key if force update fails (usually fails when it is created on created hook)
+                if (currentInst && currentInst.vnode) {
+                  currentInst.vnode.key = newKey;
+                } else if (vm.$ && vm.$.subTree) {
+                  vm.$.subTree.key = newKey;
+                } else if (currentInst && currentInst.subTree) {
+                  currentInst.subTree.key = newKey;
                 }
               }
             },
