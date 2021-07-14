@@ -8,8 +8,10 @@
 
 ### Note: This is a fork of @nopr3d/vue-next-rx
 
+![](https://img.shields.io/github/license/NOPR9D/vue-next-rx)
+
 ---
-<br />
+<br>
 
 This repository is meant to create the minimal bridge between vue-rx and vue3 to help with the migration.
 There are no plans for me to provide any methods to be used in composition api.
@@ -112,9 +114,6 @@ export function useDOMEvent<T>() {
 ```
 
 </br>
----
-
-![](https://img.shields.io/github/license/NOPR9D/vue-next-rx)
 
 <br>
 
