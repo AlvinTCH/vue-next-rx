@@ -53,6 +53,8 @@ Example:
 
 # Usage
 
+---
+
 ## Composition API
 
 Credits to @kevin-courbet in https://github.com/vuejs/vue-rx/issues/120)
@@ -107,6 +109,8 @@ export default defineComponent({
   }
 });
 ```
+
+---
 
 ## Options API
 
@@ -314,18 +318,11 @@ The above will automatically create two things on the instance:
 
 See `/examples` for some simple examples.
 
-</br>
-
 ---
-<br>
 
 ## Other Vue RxJS implementation
 
 - vuse-rx: https://github.com/Raiondesu/vuse-rx
-
-</br>
-
----
 
 ---
 
