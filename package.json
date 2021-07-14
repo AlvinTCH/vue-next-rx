@@ -1,6 +1,6 @@
 {
   "name": "@greytch/vue-next-rx",
-  "version": "1.0.7",
+  "version": "1.0.9",
   "description": "RxJs for Vue 3",
   "author": "Alvin",
   "license": "MIT",
