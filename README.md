@@ -4,7 +4,7 @@
 <img src="https://i.ibb.co/q5267TX/maxresdefault-2.jpg" width="25%" />
 </div>
 
-### [RxJS v6](https://github.com/ReactiveX/rxjs) integration for [Vue next]()
+### [RxJS v6 (or v7)](https://github.com/ReactiveX/rxjs) integration for [Vue 3]()
 
 ### Note: This is a fork of @nopr3d/vue-next-rx
 
